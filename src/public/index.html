@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baithak - The Digital Chaupal</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/auth.css" />
+</head>
+<body>
+<div class="auth-body" id="tourist">
+  <div class="wall"></div>
+  <section class="liquid-glass altered">
+    <main class="auth-card">
+      <header class="auth-head">
+        <div class="seal">बै</div>
+        <h1>Baithak</h1>
+        <p class="tagline">The digital market</p>
+      </header>
+
+      <div class="border-strip"></div>
+
+      <!-- ---------- view 1: choose ---------- -->
+      <section id="view-choose" class="view">
+
+        <p class="lede">Every village needs a place to buy and sell.</p>
+        <button class="btn btn-primary btn-block" data-goto="create">
+          Become a Merchant
+        </button>
+        <button class="btn btn-ghost btn-block" data-goto="join">
+          Become a Customer
+        </button>
+      </section>
+
+
+      <!-- ---------- view 2: create village ---------- -->
+      <section id="view-create" class="view hidden">
+        <button class="back" data-goto="choose">&larr; Back</button>
+        <h2>Become a Merchant</h2>
+        <p class="lede">
+          You will be able to supply and talk to customers
+        </p>
+
+        <div class="rule"><span>Your details</span></div>
+
+        <label for="c-display-name">Display name</label>
+        <input id="c-display-name" type="text" placeholder="Mahto Ji" />
+
+        <label for="c-username">Username</label>
+        <input id="c-username" type="text" placeholder="mahto_ji" />
+
+        <label for="c-password">Password</label>
+        <input id="c-password" type="password" placeholder="••••••••" />
+
+        <label for="" c-avatar>Enter your Avatar</label>
+        <input id="" c-avatar type="file" accept="image/*">
+
+        <p class="msg" id="create-msg"></p>
+        <button class="btn btn-primary btn-block" id="create-submit">
+          Start Selling
+        </button>
+      </section>
+
+      <!-- ---------- view 3: codes handed out after creating ---------- -->
+      <section id="view-codes" class="view hidden">
+        <h2>Village created</h2>
+        <p class="lede">
+          Keep this code secure. Its the only way to invite members.
+        </p>
+
+
+        <div class="code-box">
+          <span class="code-label">Member code - Share it with others to make them join</span>
+          <code id="out-member-code"></code>
+        </div>
+        <button class="btn btn-primary btn-block" id="enter-village">
+          Enter the village
+        </button>
+      </section>
+
+      <!-- ---------- view 4: join (login / signup) ---------- -->
+      <section id="view-join" class="view hidden">
+        <button class="back" data-goto="choose">&larr; Back</button>
+        <h2>Became a Customer</h2>
+        <p class="lede">
+          You will be able to buy and talk to merchants
+        </p>
+        <div class="rule"><span>Your details</span></div>
+
+        <label for="j-display-name">Display name</label>
+        <input id="j-display-name" type="text" placeholder="Mahto Ji" />
+
+        <label for="j-username">Username</label>
+        <input id="j-username" type="text" placeholder="mahto_ji" />
+
+        <label for="j-password">Password</label>
+        <input id="j-password" type="password" placeholder="••••••••" />
+
+        <label for="" j-avatar>Enter your Avatar</label>
+        <input id="" j-avatar type="file" accept="image/*">
+
+        <p class="msg" id="join-msg"></p>
+        <button class="btn btn-primary btn-block" id="join-submit">
+          Connect
+        </button>
+      </section>
+      
+    </main>
+
+    <!-- Switching up the pages -->
+       <section>
+          <button id="switch1" class="switch">&larr;</button>
+       </section>
+  </section>
+</div>
+<div class="auth-body" id="marketing">
+  <div class="wall"></div>
+  <section class="liquid-glass">
+    <main class="auth-card">
+      <header class="auth-head">
+        <div class="seal">बै</div>
+        <h1>Baithak</h1>
+        <p class="tagline">The digital market</p>
+      </header>
+
+      <div class="border-strip"></div>
+
+      <!-- ---------- view 1: choose ---------- -->
+      <section id="view-choose" class="view">
+
+        <p class="lede">Every village needs a place to buy and sell.</p>
+        <button class="btn btn-primary btn-block" data-goto="create">
+          Become a Merchant
+        </button>
+        <button class="btn btn-ghost btn-block" data-goto="join">
+          Become a Customer
+        </button>
+      </section>
+
+
+      <!-- ---------- view 2: create village ---------- -->
+      <section id="view-create" class="view hidden">
+        <button class="back" data-goto="choose">&larr; Back</button>
+        <h2>Become a Merchant</h2>
+        <p class="lede">
+          You will be able to supply and talk to customers
+        </p>
+
+        <div class="rule"><span>Your details</span></div>
+
+        <label for="c-display-name">Display name</label>
+        <input id="c-display-name" type="text" placeholder="Mahto Ji" />
+
+        <label for="c-username">Username</label>
+        <input id="c-username" type="text" placeholder="mahto_ji" />
+
+        <label for="c-password">Password</label>
+        <input id="c-password" type="password" placeholder="••••••••" />
+
+        <label for="" c-avatar>Enter your Avatar</label>
+        <input id="" c-avatar type="file" accept="image/*">
+
+        <p class="msg" id="create-msg"></p>
+        <button class="btn btn-primary btn-block" id="create-submit">
+          Start Selling
+        </button>
+      </section>
+
+      <!-- ---------- view 3: codes handed out after creating ---------- -->
+      <section id="view-codes" class="view hidden">
+        <h2>Village created</h2>
+        <p class="lede">
+          Keep this code secure. Its the only way to invite members.
+        </p>
+
+
+        <div class="code-box">
+          <span class="code-label">Member code - Share it with others to make them join</span>
+          <code id="out-member-code"></code>
+        </div>
+        <button class="btn btn-primary btn-block" id="enter-village">
+          Enter the village
+        </button>
+      </section>
+
+      <!-- ---------- view 4: join (login / signup) ---------- -->
+      <section id="view-join" class="view hidden">
+        <button class="back" data-goto="choose">&larr; Back</button>
+        <h2>Became a Customer</h2>
+        <p class="lede">
+          You will be able to buy and talk to merchants
+        </p>
+        <div class="rule"><span>Your details</span></div>
+
+        <label for="j-display-name">Display name</label>
+        <input id="j-display-name" type="text" placeholder="Mahto Ji" />
+
+        <label for="j-username">Username</label>
+        <input id="j-username" type="text" placeholder="mahto_ji" />
+
+        <label for="j-password">Password</label>
+        <input id="j-password" type="password" placeholder="••••••••" />
+
+        <label for="" j-avatar>Enter your Avatar</label>
+        <input id="" j-avatar type="file" accept="image/*">
+
+        <p class="msg" id="join-msg"></p>
+        <button class="btn btn-primary btn-block" id="join-submit">
+          Connect
+        </button>
+      </section>
+    </main>
+
+    <section>
+          <button id="switch2" class="switch">&rarr;</button>
+       </section>
+  </section>
+
+
+</div>
+  <script src="/js/util.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/session.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/switch.js"></script>
+</body>
+
+</html>

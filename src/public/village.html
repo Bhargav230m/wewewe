@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baithak</title>
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+  </head>
+  <body class="app-body">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="seal seal-sm">🏠</button>
+        <div class = "arranged-top">
+          <div class="trans village-name" id="top-village-name"></div>
+          <div class="trans village-sub" id ="top-village-id"></div>
+          <div class = "trans village-sub" id ="top-village-add">S</div>
+        </div>
+      </div>
+    </header>
+    <div class="border-strip"></div>
+
+    <!-- ================= layout ================= -->
+    <div class="layout">
+      <!-- ---------- left: people ---------- -->
+      <aside class="side side-left">
+        <h3 class="side-title">People</h3>
+
+        <div class="group">
+          <h4 class="group-title">Main head</h4>
+          <ul class="people" id="list-mainhead"></ul>
+        </div>
+
+        <div class="group">
+          <h4 class="group-title">Members</h4>
+          <ul class="people" id="list-members"></ul>
+        </div>
+
+        <div class="side-foot">
+          <button class="account-btn" id="account-btn" aria-expanded="false">
+            <span class="account-name" id="top-me"></span>
+            <span class="account-caret">▴</span>
+          </button>
+
+          <div class="account-menu hidden" id="account-menu">
+            <button class="menu-item1" id="logout">Log out</button>
+            <button class="menu-item2" type="button">Delete Account</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ---------- middle: panels ---------- -->
+      <main class="content">
+        <!-- calendar -->
+        <section class="panel hidden" id="panel-calendar">
+          <div class="panel-head">
+            <h2 class="panel-title">Events</h2>
+            <button class="btn btn-small" data-refresh="events">Refresh</button>
+          </div>
+          <p class="panel-note">
+            Sowing dates, panchayat meetings and mandi days. Only the sarpanch
+            can add an event.
+          </p>
+
+          <form class="composer hidden" id="composer-event">
+            <input
+              type="text"
+              maxlength="60"
+              placeholder="Event name, e.g. Gram sabha"
+              aria-label="Event name"
+              data-field="title"
+            />
+            <div class="composer-row">
+              <input type="date" aria-label="Event date" data-field="date" />
+              <input
+                type="time"
+                aria-label="Event time, optional"
+                data-field="time"
+              />
+            </div>
+            <input
+              type="text"
+              maxlength="60"
+              placeholder="Place (optional)"
+              aria-label="Place"
+              data-field="place"
+            />
+            <textarea
+              rows="3"
+              placeholder="Details (optional)"
+              aria-label="Event details"
+              data-field="details"
+            ></textarea>
+            <button class="btn btn-primary" type="submit">Create event</button>
+          </form>
+
+          <p class="msg" id="event-msg" role="status" aria-live="polite"></p>
+
+          <h4 class="group-title">Upcoming events</h4>
+          <div class="posts" id="events-upcoming"></div>
+          <p class="panel-note hidden" id="events-past-note"></p>
+        </section>
+
+        <!-- announcements -->
+        <section class="panel hidden" id="panel-masterposts">
+          <div class="panel-head">
+            <h2 class="panel-title">Announcements</h2>
+            <button class="btn btn-small" data-refresh="posts">Refresh</button>
+          </div>
+          <p class="panel-note">
+            Announcements from the sarpanch of the village.
+          </p>
+
+          <form class="composer hidden" id="composer-master">
+            <input
+              type="text"
+              placeholder="Title"
+              aria-label="Announcement title"
+              data-field="title"
+            />
+            <textarea
+              rows="4"
+              placeholder="Write the announcement…"
+              aria-label="Announcement body"
+              data-field="body"
+            ></textarea>
+            <input
+              type="text"
+              placeholder="Tags, comma separated"
+              aria-label="Tags, comma separated"
+              data-field="tags"
+            />
+            <button class="btn btn-primary" type="submit">
+              Post announcement
+            </button>
+          </form>
+
+          <div class="posts" id="posts-master"></div>
+        </section>
+
+        <!-- complaints -->
+        <section class="panel hidden" id="panel-generalposts">
+          <div class="panel-head">
+            <h2 class="panel-title">Complaints &amp; general</h2>
+            <button class="btn btn-small" data-refresh="posts">Refresh</button>
+          </div>
+          <p class="panel-note">
+            Anyone in the village can raise something here.
+          </p>
+
+          <form class="composer" id="composer-general">
+            <input
+              type="text"
+              placeholder="Title"
+              aria-label="Title"
+              data-field="title"
+            />
+            <textarea
+              rows="4"
+              placeholder="What is the matter?"
+              aria-label="What is the matter"
+              data-field="body"
+            ></textarea>
+            <input
+              type="text"
+              placeholder="Tags, comma separated"
+              aria-label="Tags, comma separated"
+              data-field="tags"
+            />
+            <button class="btn btn-primary" type="submit">Post</button>
+          </form>
+
+          <div class="posts" id="posts-general"></div>
+        </section>
+
+        <!-- chat -->
+        <section class="panel panel-chat hidden" id="panel-chat">
+          <div class="panel-head">
+            <h2 class="panel-title">Chaupal</h2>
+          </div>
+
+          <div class="chat-log" id="chat-log"></div>
+
+          <form class="chat-form" id="chat-form">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Say something to the village…"
+              aria-label="Message"
+              autocomplete="off"
+            />
+            <button id="mic" type="button">🎤</button>
+            <button class="btn btn-primary" type="submit">Send</button>
+          </form>
+        </section>
+        <script>
+          const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const btn = document.getElementById("mic");
+          const out = document.getElementById("chat-input");
+          const form = document.getElementById("chat-form");
+
+          if (!SR) {
+            btn.disabled = true;
+            btn.title = "Voice input isn't supported in this browser";
+          } else {
+            const rec = new SR();
+            rec.lang = "en-US";
+            rec.continuous = true;
+            rec.interimResults = true;
+
+            let listening = false;
+            let finalText = ""; // settled speech for the current message
+            let baseline = ""; // whatever was typed before the mic was tapped
+
+            function setListening(on) {
+              listening = on;
+              btn.textContent = on ? "⏹" : "🎤";
+              btn.setAttribute("aria-pressed", String(on));
+            }
+
+            rec.onresult = (e) => {
+              let interim = "";
+              for (let i = e.resultIndex; i < e.results.length; i++) {
+                const t = e.results[i][0].transcript;
+                e.results[i].isFinal ? (finalText += t + " ") : (interim += t);
+              }
+              out.value = baseline + finalText + interim;
+            };
+
+            rec.onerror = (e) => {
+              console.error("speech error:", e.error);
+              if (
+                e.error === "not-allowed" ||
+                e.error === "service-not-allowed"
+              ) {
+                setListening(false); // permission refused — stop the restart loop
+                btn.title = "Microphone access is blocked for this site";
+              }
+            };
+
+            rec.onend = () => {
+              if (!listening) return;
+              try {
+                rec.start(); // silence timeout, not a real stop
+              } catch (err) {
+                setListening(false); // already running or unrecoverable
+              }
+            };
+
+            btn.onclick = () => {
+              if (listening) {
+                setListening(false);
+                rec.stop();
+                return;
+              }
+              baseline = out.value ? out.value.trimEnd() + " " : "";
+              finalText = "";
+              try {
+                rec.start();
+                setListening(true);
+              } catch (err) {
+                console.error(err);
+              }
+            };
+
+            form.addEventListener("submit", () => {
+              finalText = "";
+              baseline = "";
+              if (listening) {
+                setListening(false);
+                rec.stop();
+              }
+            });
+          }
+        </script>
+
+        <!-- invites -->
+        <section class="panel hidden" id="panel-invites">
+          <h2 class="panel-title">Invites</h2>
+          <p class="panel-note">Only a head can see this.</p>
+
+          <div class="code-box">
+            <span class="code-label">Village Code</span>
+            <span id="member-code">Loading...</span>
+          </div>
+
+          <div class="code-box">
+            <span class="code-label">Generate Member code</span>
+            <code id="inv-member-code">-</code>
+            <button class="btn btn-small btn-danger hidden" id="revoke-member">
+              Generate
+            </button>
+          </div>
+
+          <p class="msg" id="invite-msg" role="status" aria-live="polite"></p>
+          <p class="panel-note">
+            Allows members to join
+          </p>
+        </section>
+      </main>
+
+      <!-- ---------- right: nav ---------- -->
+      <aside class="side side-right">
+        <h3 class="side-title">Village</h3>
+        <nav class="nav">
+          <button class="nav-item" data-panel="calendar">Events</button>
+          <button class="nav-item" data-panel="masterposts">
+            Announcements
+          </button>
+          <button class="nav-item" data-panel="generalposts">Complaints</button>
+          <button class="nav-item" data-panel="chat">Chaupal</button>
+          <button class="nav-item hidden" data-panel="invites" id="nav-invites">
+            Invites
+          </button>
+        </nav>
+      </aside>
+    </div>
+
+    <div class="popup hidden" id="user-popup"></div>
+
+    <script src="/js/util.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/session.js"></script>
+    <script src="/js/members.js"></script>
+    <script src="/js/posts.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/invites.js"></script>
+    <script src="/js/calendar.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+/* ============================================================
+   base.css — palette, typography and shared bits
+   Village palette: haldi walls, indigo, terracotta, neem.
+   ============================================================ */
+
+:root {
+  --haldi: #e8b64c; /* turmeric wall */
+  --haldi-soft: #f6e3b4;
+  --wall: #fdf4e0; /* limewashed cream */
+  --indigo: #2a3a63; /* indigo dye */
+  --indigo-soft: #4a5c8a;
+  --terracotta: #c0562f;
+  --terracotta-dark: #93401f;
+  --neem: #5d7f3c;
+  --ink: #3a2a17;
+  --muted: #8a7355;
+  --line: #e0cba1;
+  --paper: #fffaf0;
+
+  --radius: 10px;
+  --shadow: 0 2px 0 rgba(58, 42, 23, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  color: var(--ink);
+  background: var(--wall);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- the seal (logo stand-in) ---------- */
+.seal {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--haldi);
+  border: 3px solid var(--terracotta);
+  color: var(--indigo);
+  font-size: 28px;
+  line-height: 58px;
+  text-align: center;
+}
+
+.seal-sm {
+  width: 38px;
+  height: 38px;
+  font-size: 18px;
+  line-height: 32px;
+  border-width: 2px;
+  margin: 0;
+}
+
+/* ---------- signature: painted mud-wall border ----------
+   A sawtooth band, the kind painted along a chaupal wall.
+   Pure CSS, no images.                                       */
+.border-strip {
+  height: 14px;
+  background-color: var(--terracotta);
+  background-image:
+    linear-gradient(135deg, var(--haldi) 25%, transparent 25%),
+    linear-gradient(225deg, var(--haldi) 25%, transparent 25%);
+  background-size: 16px 16px;
+
+  animation: moveStrip 1s linear infinite;
+}
+
+@keyframes moveStrip {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 32px 0, 32px 0;
+  }
+}
+
+/* ---------- forms ---------- */
+label {
+  display: block;
+  margin: 14px 0 5px;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 11px 13px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--indigo);
+  outline-offset: 1px;
+  border-color: var(--indigo);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  padding: 11px 18px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--haldi-soft);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.btn:hover {
+  filter: brightness(0.97);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--terracotta);
+  border-color: var(--terracotta-dark);
+}
+
+.btn-ghost {
+  background: transparent;
+}
+
+.btn-danger {
+  color: #fff;
+  background: var(--terracotta-dark);
+  border-color: var(--terracotta-dark);
+}
+
+.btn-small {
+  padding: 6px 11px;
+  font-size: 12px;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* ---------- small shared pieces ---------- */
+.hidden {
+  display: none !important;
+}
+
+.msg {
+  min-height: 18px;
+  margin: 12px 0 0;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--terracotta-dark);
+}
+
+.msg.good {
+  color: var(--neem);
+}
+
+.lede {
+  margin: 10px 0 18px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.code-box {
+  display: flex;
+  align-items: center;
+  gap: 00px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+.code-label {
+  flex: 0 0 auto;
+  width: 150px;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.code-box code {
+  flex: 1 1 auto;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px;
+  color: var(--indigo);
+  word-break: break-all;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

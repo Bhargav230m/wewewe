@@ -1,16 +1,16 @@
 {
-  "name": "litfest",
+  "name": "digital-chaupal",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A digital chaupal",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^4.19.2",
     "mongoose": "^9.9.0"
   }
 }
